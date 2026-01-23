@@ -1,17 +1,21 @@
 todo borrow book
-
 deadline return book /by Sunday
-
 event project meeting /from Mon 2pm /to 4pm
-
 list
-
 mark 1
-
 list
-
 unmark 1
-
+list
+invalid command
+mark 4
+unmark 5
+todo
+deadline
+deadline description
+event
+event description
+event description /from date
+delete 3
 list
 
 bye

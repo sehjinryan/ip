@@ -128,6 +128,20 @@ public class B2SuperBattleDroid {
         }
     }
 
+    public void delete(int task_id) throws CbException {
+        if (task_id < 0 || task_id >= tasks.size()) {
+            throw new CbException("Error: Invalid task!");
+        }
+
+        Task target = tasks.remove(task_id);
+
+        System.out.println(SEPARATOR);
+        System.out.println("Noted. I've removed this task:");
+        System.out.println(target);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        System.out.println(SEPARATOR);
+    }
+
     public static void main(String[] args) {
         B2SuperBattleDroid chatbot = new B2SuperBattleDroid();
 
@@ -213,6 +227,22 @@ public class B2SuperBattleDroid {
             if (input.startsWith("event")) {
                 try {
                     chatbot.addEvent(input);
+                } catch (CbException e) {
+                    System.out.println(SEPARATOR);
+                    System.out.println(e.getMessage());
+                    System.out.println(SEPARATOR);
+                    continue;
+                }
+
+                continue;
+            }
+
+            if (input.startsWith("delete")) {
+                String[] components = input.split(" ");
+                int task_id = Integer.parseInt(components[1]) - 1;
+
+                try {
+                    chatbot.delete(task_id);
                 } catch (CbException e) {
                     System.out.println(SEPARATOR);
                     System.out.println(e.getMessage());
