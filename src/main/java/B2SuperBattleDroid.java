@@ -14,7 +14,7 @@ public class B2SuperBattleDroid {
 
     public void listTasks() {
         System.out.println(SEPARATOR);
-        System.out.println("Here are the tasks in your list: ");
+        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             Task curr = tasks.get(i);
             System.out.println((i + 1) + "." + curr);
@@ -27,7 +27,7 @@ public class B2SuperBattleDroid {
         target.markAsDone();
 
         System.out.println(SEPARATOR);
-        System.out.println("Nice! I've marked this task as done: ");
+        System.out.println("Nice! I've marked this task as done:");
         System.out.println(target);
         System.out.println(SEPARATOR);
     }
@@ -37,7 +37,7 @@ public class B2SuperBattleDroid {
         target.markAsUndone();
 
         System.out.println(SEPARATOR);
-        System.out.println("OK, I've marked this task as not done yet: ");
+        System.out.println("OK, I've marked this task as not done yet:");
         System.out.println(target);
         System.out.println(SEPARATOR);
     }
@@ -47,7 +47,7 @@ public class B2SuperBattleDroid {
         tasks.add(todo);
 
         System.out.println(SEPARATOR);
-        System.out.println("Got it. I've addded this task: ");
+        System.out.println("Got it. I've added this task:");
         System.out.println(todo);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         System.out.println(SEPARATOR);
@@ -58,7 +58,7 @@ public class B2SuperBattleDroid {
         tasks.add(dl);
 
         System.out.println(SEPARATOR);
-        System.out.println("Got it. I've addded this task: ");
+        System.out.println("Got it. I've added this task:");
         System.out.println(dl);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         System.out.println(SEPARATOR);
@@ -69,7 +69,7 @@ public class B2SuperBattleDroid {
         tasks.add(event);
 
         System.out.println(SEPARATOR);
-        System.out.println("Got it. I've addded this task: ");
+        System.out.println("Got it. I've added this task:");
         System.out.println(event);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         System.out.println(SEPARATOR);
@@ -89,7 +89,6 @@ public class B2SuperBattleDroid {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.print("User: ");
             String input = scanner.nextLine().trim();
 
             if (input.equals("list")) {
