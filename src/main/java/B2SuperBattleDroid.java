@@ -22,7 +22,11 @@ public class B2SuperBattleDroid {
         System.out.println(SEPARATOR);
     }
 
-    public void markTaskAsDone(int task_id) {
+    public void markTaskAsDone(int task_id) throws CbException {
+        if (task_id < 0 || task_id >= tasks.size()) {
+            throw new CbException("Error: Invalid task!");
+        }
+
         Task target = tasks.get(task_id);
         target.markAsDone();
 
@@ -32,8 +36,13 @@ public class B2SuperBattleDroid {
         System.out.println(SEPARATOR);
     }
 
-    public void markTaskAsUndone(int task_id) {
+    public void markTaskAsUndone(int task_id) throws CbException {
+        if (task_id < 0 || task_id >= tasks.size()) {
+            throw new CbException("Error: Invalid task!");
+        }
+
         Task target = tasks.get(task_id);
+
         target.markAsUndone();
 
         System.out.println(SEPARATOR);
@@ -42,7 +51,13 @@ public class B2SuperBattleDroid {
         System.out.println(SEPARATOR);
     }
 
-    public void addTodo(String description) {
+    public void addTodo(String input) throws CbException {
+        if (input.trim().equals("todo")) {
+            throw new CbException("Error: The description cannot be empty!");
+        }
+
+        String description = input.substring(4).trim();
+
         Task todo = new Todo(description);
         tasks.add(todo);
 
@@ -53,8 +68,18 @@ public class B2SuperBattleDroid {
         System.out.println(SEPARATOR);
     }
 
-    public void addDeadline(String description, String deadline) {
-        Task dl = new Deadline(description, deadline);
+    public void addDeadline(String input) throws CbException {
+        if (input.trim().equals("deadline")) {
+            throw new CbException("Error: The description cannot be empty!");
+        }
+
+        String[] components = input.substring(8).trim().split(" /by ");
+
+        if (components.length < 2) {
+            throw new CbException("Error: The deadline cannot be empty!");
+        }
+
+        Task dl = new Deadline(components[0], components[1]);
         tasks.add(dl);
 
         System.out.println(SEPARATOR);
@@ -64,8 +89,24 @@ public class B2SuperBattleDroid {
         System.out.println(SEPARATOR);
     }
 
-    public void addEvent(String description, String start, String end) {
-        Task event = new Event(description, start, end);
+    public void addEvent(String input) throws CbException {
+        if (input.trim().equals("event")) {
+            throw new CbException("Error: The description cannot be empty!");
+        }
+
+        String[] components = input.substring(5).trim().split(" /from ");
+
+        if (components.length < 2) {
+            throw new CbException("Error: The start time cannot be empty!");
+        }
+
+        String[] timeComponents = components[1].split(" /to ");
+
+        if (timeComponents.length < 2) {
+            throw new CbException("Error: The end time cannot be empty!");
+        }
+
+        Task event = new Event(components[0], timeComponents[0], timeComponents[1]);
         tasks.add(event);
 
         System.out.println(SEPARATOR);
@@ -81,6 +122,12 @@ public class B2SuperBattleDroid {
         System.out.println(SEPARATOR);
     }
 
+    public void validate(String input) throws CbException {
+        if (input == null || input.trim().isEmpty()) {
+            throw new CbException("Error: Input cannot be empty!");
+        }
+    }
+
     public static void main(String[] args) {
         B2SuperBattleDroid chatbot = new B2SuperBattleDroid();
 
@@ -91,6 +138,15 @@ public class B2SuperBattleDroid {
         while (true) {
             String input = scanner.nextLine().trim();
 
+            try {
+                chatbot.validate(input);
+            } catch (CbException e) {
+                System.out.println(SEPARATOR);
+                System.out.println(e.getMessage());
+                System.out.println(SEPARATOR);
+                continue;
+            }
+
             if (input.equals("list")) {
                 chatbot.listTasks();
                 continue;
@@ -99,38 +155,85 @@ public class B2SuperBattleDroid {
             if (input.startsWith("mark")) {
                 String[] components = input.split(" ");
                 int task_id = Integer.parseInt(components[1]) - 1;
-                chatbot.markTaskAsDone(task_id);
+
+                try {
+                    chatbot.markTaskAsDone(task_id);
+                } catch (CbException e) {
+                    System.out.println(SEPARATOR);
+                    System.out.println(e.getMessage());
+                    System.out.println(SEPARATOR);
+                    continue;
+                }
+
                 continue;
             }
 
             if (input.startsWith("unmark")) {
                 String[] components = input.split(" ");
                 int task_id = Integer.parseInt(components[1]) - 1;
-                chatbot.markTaskAsUndone(task_id);
+
+                try {
+                    chatbot.markTaskAsUndone(task_id);
+                } catch (CbException e) {
+                    System.out.println(SEPARATOR);
+                    System.out.println(e.getMessage());
+                    System.out.println(SEPARATOR);
+                    continue;
+                }
+
                 continue;
             }
 
             if (input.startsWith("todo")) {
-                String description = input.substring(5).trim();
-                chatbot.addTodo(description);
+                try {
+                    chatbot.addTodo(input);
+                } catch (CbException e) {
+                    System.out.println(SEPARATOR);
+                    System.out.println(e.getMessage());
+                    System.out.println(SEPARATOR);
+                    continue;
+                }
+
                 continue;
             }
 
             if (input.startsWith("deadline")) {
-                String[] components = input.substring(9).trim().split(" /by ");
-                chatbot.addDeadline(components[0], components[1]);
+                try {
+                    chatbot.addDeadline(input);
+                } catch (CbException e) {
+                    System.out.println(SEPARATOR);
+                    System.out.println(e.getMessage());
+                    System.out.println(SEPARATOR);
+                    continue;
+                }
+
                 continue;
             }
 
             if (input.startsWith("event")) {
-                String[] components = input.substring(6).trim().split(" /from | /to ");
-                chatbot.addEvent(components[0], components[1], components[2]);
+                try {
+                    chatbot.addEvent(input);
+                } catch (CbException e) {
+                    System.out.println(SEPARATOR);
+                    System.out.println(e.getMessage());
+                    System.out.println(SEPARATOR);
+                    continue;
+                }
+
                 continue;
             }
 
             if (input.equals("bye")) {
                 chatbot.exit();
                 break;
+            }
+
+            try {
+                throw new CbException("Error: invalid command!");
+            } catch (CbException e) {
+                System.out.println(SEPARATOR);
+                System.out.println(e.getMessage());
+                System.out.println(SEPARATOR);
             }
         }
     }
