@@ -1,14 +1,16 @@
-public class Deadline extends Task {
-    protected String deadline;
+import java.time.LocalDateTime;
 
-    public Deadline(String description, String deadline) {
+public class Deadline extends Task {
+    protected LocalDateTime deadline;
+
+    public Deadline(String description, LocalDateTime deadline) {
         super(description);
         this.deadline = deadline;
     }
 
     @Override
     public String toString() {
-        return "[D]" + getStatusIcon() + " " + description + " (by: " + deadline + ")";
+        return "[D]" + getStatusIcon() + " " + description + " (by: " + deadline.format(DISPLAY_FORMAT) + ")";
     }
 
     @Override

@@ -2,13 +2,32 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class B2SuperBattleDroid {
     private static final String FILE_PATH = "data/tasks.txt";
     private static final String SEPARATOR = "____________________________________________________________";
     private static final ArrayList<Task> tasks = new ArrayList<Task>();
+    private static final DateTimeFormatter[] FORMATS = {
+        DateTimeFormatter.ISO_LOCAL_DATE_TIME,
+        DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
+        DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"),
+    };
+
+    private LocalDateTime parseDateTime(String input) throws CbException {
+        String dateTime = input.trim();
+        for (DateTimeFormatter format : FORMATS) {
+            try {
+                return LocalDateTime.parse(dateTime, format);
+            } catch (DateTimeParseException ignored) {}
+        }
+
+        throw new CbException("Error: Invalid date/time format! Accepted formats are dd/MM/yyyy HHmm or dd-MM-yyyy HHmm");
+    }
 
     private void loadTasks() {
         File f = new File(FILE_PATH);
@@ -28,11 +47,12 @@ public class B2SuperBattleDroid {
                         t = new Todo(description);
                         break;
                     case "D":
-                        t = new Deadline(description, components[3]);
+                        LocalDateTime due = parseDateTime(components[3]);
+                        t = new Deadline(description, due);
                         break;
                     case "E":
-                        String start = components[3].split(" to ")[0];
-                        String end = components[3].split(" to ")[1];
+                        LocalDateTime start = parseDateTime(components[3].split(" to ")[0]);
+                        LocalDateTime end = parseDateTime(components[3].split(" to ")[1]);
                         t = new Event(description, start, end);
                         break;
                 }
@@ -45,6 +65,8 @@ public class B2SuperBattleDroid {
             }
         } catch (FileNotFoundException e) {
             System.out.println("Error: tasks file not found!");
+        } catch (CbException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -143,7 +165,10 @@ public class B2SuperBattleDroid {
             throw new CbException("Error: The deadline cannot be empty!");
         }
 
-        Task dl = new Deadline(components[0], components[1]);
+        String description = components[0];
+        LocalDateTime d = parseDateTime(components[1]);
+
+        Task dl = new Deadline(description, d);
         tasks.add(dl);
 
         System.out.println(SEPARATOR);
@@ -170,7 +195,10 @@ public class B2SuperBattleDroid {
             throw new CbException("Error: The end time cannot be empty!");
         }
 
-        Task event = new Event(components[0], timeComponents[0], timeComponents[1]);
+        LocalDateTime start = parseDateTime(timeComponents[0]);
+        LocalDateTime end = parseDateTime(timeComponents[1]);
+
+        Task event = new Event(components[0], start, end);
         tasks.add(event);
 
         System.out.println(SEPARATOR);
