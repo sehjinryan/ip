@@ -1,9 +1,73 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class B2SuperBattleDroid {
+    private static final String FILE_PATH = "data/tasks.txt";
     private static final String SEPARATOR = "____________________________________________________________";
     private static final ArrayList<Task> tasks = new ArrayList<Task>();
+
+    private void loadTasks() {
+        File f = new File(FILE_PATH);
+        try {
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                String line = s.nextLine();
+                String[] components = line.split(" \\| ");
+                String taskType = components[0];
+                boolean isDone = components[1].equals("1");
+                String description = components[2];
+
+                Task t = null;
+
+                switch (taskType) {
+                    case "T":
+                        t = new Todo(description);
+                        break;
+                    case "D":
+                        t = new Deadline(description, components[3]);
+                        break;
+                    case "E":
+                        String start = components[3].split(" to ")[0];
+                        String end = components[3].split(" to ")[1];
+                        t = new Event(description, start, end);
+                        break;
+                }
+
+                if (isDone) {
+                    t.markAsDone();
+                }
+
+                tasks.add(t);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: tasks file not found!");
+        }
+    }
+
+    private void saveTasks() {
+        try {
+            File f = new File(FILE_PATH);
+
+            if (f.getParentFile() != null) {
+                f.getParentFile().mkdirs();
+            }
+
+            FileWriter fw = new FileWriter(f, false);
+
+            for (Task curr : tasks) {
+                fw.write(curr.toSaveString() + "\n");
+            }
+
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("Error: Unable to save tasks!");
+
+        }
+    }
 
     public void intro() {
         System.out.println(SEPARATOR);
@@ -145,6 +209,7 @@ public class B2SuperBattleDroid {
     public static void main(String[] args) {
         B2SuperBattleDroid chatbot = new B2SuperBattleDroid();
 
+        chatbot.loadTasks();
         chatbot.intro();
 
         Scanner scanner = new Scanner(System.in);
@@ -172,6 +237,7 @@ public class B2SuperBattleDroid {
 
                 try {
                     chatbot.markTaskAsDone(task_id);
+                    chatbot.saveTasks();
                 } catch (CbException e) {
                     System.out.println(SEPARATOR);
                     System.out.println(e.getMessage());
@@ -188,6 +254,7 @@ public class B2SuperBattleDroid {
 
                 try {
                     chatbot.markTaskAsUndone(task_id);
+                    chatbot.saveTasks();
                 } catch (CbException e) {
                     System.out.println(SEPARATOR);
                     System.out.println(e.getMessage());
@@ -201,6 +268,7 @@ public class B2SuperBattleDroid {
             if (input.startsWith("todo")) {
                 try {
                     chatbot.addTodo(input);
+                    chatbot.saveTasks();
                 } catch (CbException e) {
                     System.out.println(SEPARATOR);
                     System.out.println(e.getMessage());
@@ -214,6 +282,7 @@ public class B2SuperBattleDroid {
             if (input.startsWith("deadline")) {
                 try {
                     chatbot.addDeadline(input);
+                    chatbot.saveTasks();
                 } catch (CbException e) {
                     System.out.println(SEPARATOR);
                     System.out.println(e.getMessage());
@@ -227,6 +296,7 @@ public class B2SuperBattleDroid {
             if (input.startsWith("event")) {
                 try {
                     chatbot.addEvent(input);
+                    chatbot.saveTasks();
                 } catch (CbException e) {
                     System.out.println(SEPARATOR);
                     System.out.println(e.getMessage());
@@ -243,6 +313,7 @@ public class B2SuperBattleDroid {
 
                 try {
                     chatbot.delete(task_id);
+                    chatbot.saveTasks();
                 } catch (CbException e) {
                     System.out.println(SEPARATOR);
                     System.out.println(e.getMessage());
