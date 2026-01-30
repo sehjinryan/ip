@@ -20,6 +20,7 @@ public class Storage {
     public ArrayList<Task> loadTasks() throws CbException {
         ArrayList<Task> loadedTasks = new ArrayList<Task>();
         File f = new File(filePath);
+
         try {
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
@@ -32,18 +33,18 @@ public class Storage {
                 Task t = null;
 
                 switch (taskType) {
-                    case "T":
-                        t = new Todo(description);
-                        break;
-                    case "D":
-                        LocalDateTime due = parser.parseDateTime(components[3]);
-                        t = new Deadline(description, due);
-                        break;
-                    case "E":
-                        LocalDateTime start = parser.parseDateTime(components[3].split(" to ")[0]);
-                        LocalDateTime end = parser.parseDateTime(components[3].split(" to ")[1]);
-                        t = new Event(description, start, end);
-                        break;
+                case "T":
+                    t = new Todo(description);
+                    break;
+                case "D":
+                    LocalDateTime due = parser.parseDateTime(components[3]);
+                    t = new Deadline(description, due);
+                    break;
+                case "E":
+                    LocalDateTime start = parser.parseDateTime(components[3].split(" to ")[0]);
+                    LocalDateTime end = parser.parseDateTime(components[3].split(" to ")[1]);
+                    t = new Event(description, start, end);
+                    break;
                 }
 
                 if (isDone) {

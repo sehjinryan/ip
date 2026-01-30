@@ -12,6 +12,7 @@ public class B2SuperBattleDroid {
     public B2SuperBattleDroid(String filePath) {
         this.storage = new Storage(filePath);
         this.ui = new Ui();
+
         try {
             taskList = new TaskList(storage.loadTasks());
         } catch (CbException e) {
@@ -20,7 +21,7 @@ public class B2SuperBattleDroid {
     }
 
     public void run() {
-        ui.intro();
+        ui.printIntro();
         Scanner scanner = new Scanner(System.in);
         boolean isRunning = true;
 
