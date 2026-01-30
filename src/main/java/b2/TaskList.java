@@ -49,10 +49,12 @@ public class TaskList {
     public void listTasks() {
         System.out.println(SEPARATOR);
         System.out.println("Here are the tasks in your list:");
+
         for (int i = 0; i < tasks.size(); i++) {
             Task curr = tasks.get(i);
             System.out.println((i + 1) + "." + curr);
         }
+
         System.out.println(SEPARATOR);
     }
 
@@ -64,12 +66,11 @@ public class TaskList {
      */
     public void markTaskAsDone(int task_id) throws CbException {
         if (task_id < 0 || task_id >= tasks.size()) {
-            throw new CbException("Error: Invalid task!");
+            throw new CbException("Error: Invalid task id!");
         }
 
         Task target = tasks.get(task_id);
         target.markAsDone();
-
 
         System.out.println(SEPARATOR);
         System.out.println("Nice! I've marked this task as done:");
@@ -85,7 +86,7 @@ public class TaskList {
      */
     public void markTaskAsUndone(int task_id) throws CbException {
         if (task_id < 0 || task_id >= tasks.size()) {
-            throw new CbException("Error: Invalid task!");
+            throw new CbException("Error: Invalid task id!");
         }
 
         Task target = tasks.get(task_id);
@@ -195,7 +196,7 @@ public class TaskList {
      */
     public void delete(int task_id) throws CbException {
         if (task_id < 0 || task_id >= tasks.size()) {
-            throw new CbException("Error: Invalid task!");
+            throw new CbException("Error: Invalid task id!");
         }
 
         Task target = tasks.remove(task_id);

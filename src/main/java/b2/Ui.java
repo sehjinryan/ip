@@ -2,29 +2,14 @@ package b2;
 
 import java.util.Scanner;
 
-/**
- * Ui class to handle user interactions with the chatbot.
- * Provides methods for displaying intro and exit messages,
- * validating user input, and processing commands.
- */
 public class Ui {
     private static final String SEPARATOR = "____________________________________________________________";
 
-    /**
-     * Validates the user input to ensure it is not empty.
-     *
-     * @param input the user input string
-     * @throws CbException if the input is empty
-     */
     public void validate(String input) throws CbException {
         if (input == null || input.trim().isEmpty()) {
             throw new CbException("Error: Input cannot be empty!");
         }
     }
-
-    /**
-     * Displays the introduction message to the user.
-     */
     public void intro() {
         System.out.println(SEPARATOR);
         System.out.println("Hello! I'm B2 Super Battle Droid");
@@ -32,25 +17,12 @@ public class Ui {
         System.out.println(SEPARATOR);
     }
 
-    /**
-     * Displays the exit message to the user.
-     */
     public void exit() {
         System.out.println(SEPARATOR);
         System.out.println("Bye. hope to see you again soon!");
         System.out.println(SEPARATOR);
     }
 
-    /**
-     * Handles user input and processes commands accordingly.
-     * Supports commands list, bye, mark, unmark, todo, deadline, event, and delete.
-     * Displays appropriate messages for each command and updates the task list and storage if needed.
-     *
-     * @param scanner  the Scanner object to read user input
-     * @param taskList the TaskList object to manage tasks
-     * @param storage  the Storage object to update tasks
-     * @return true if the chatbot should continue running, false to exit
-     */
     public boolean handleUserInput(Scanner scanner, TaskList taskList, Storage storage) {
         String input = scanner.nextLine().trim();
 
