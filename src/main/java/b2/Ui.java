@@ -10,14 +10,14 @@ public class Ui {
             throw new CbException("Error: Input cannot be empty!");
         }
     }
-    public void intro() {
+    public void printIntro() {
         System.out.println(SEPARATOR);
         System.out.println("Hello! I'm B2 Super Battle Droid");
         System.out.println("What can I do for you?");
         System.out.println(SEPARATOR);
     }
 
-    public void exit() {
+    public void printExit() {
         System.out.println(SEPARATOR);
         System.out.println("Bye. hope to see you again soon!");
         System.out.println(SEPARATOR);
@@ -35,7 +35,7 @@ public class Ui {
             }
 
             if (input.equals("bye")) {
-                exit();
+                printExit();
                 return false;
             }
 
