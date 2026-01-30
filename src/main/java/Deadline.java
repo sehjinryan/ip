@@ -10,5 +10,10 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + getStatusIcon() + " " + description + " (by: " + deadline + ")";
     }
+
+    @Override
+    public String toSaveString() {
+        return "D | " + super.toSaveString() + " | " + deadline;
+    }
 }
 
