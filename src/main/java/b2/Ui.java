@@ -81,6 +81,13 @@ public class Ui {
                 return true;
             }
 
+            if (input.startsWith("find")) {
+                String[] components = input.split(" ");
+                String keyword = components[1];
+                taskList.find(keyword);
+                return true;
+            }
+
             System.out.println(SEPARATOR);
             System.out.println("Error: invalid command!");
             System.out.println(SEPARATOR);

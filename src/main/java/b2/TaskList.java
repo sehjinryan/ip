@@ -207,4 +207,25 @@ public class TaskList {
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         System.out.println(SEPARATOR);
     }
+
+    public void find(String keyword) {
+        System.out.println(SEPARATOR);
+        System.out.println("Here are the matching tasks in your list:");
+
+        int count = 0;
+
+        for (int i = 0; i < tasks.size(); i++) {
+            Task curr = tasks.get(i);
+            if (curr.getDescription().contains(keyword)) {
+                System.out.println((i + 1) + "." + curr);
+                count++;
+            }
+        }
+
+        if (count == 0) {
+            System.out.println("No matching tasks found.");
+        }
+
+        System.out.println(SEPARATOR);
+    }
 }
