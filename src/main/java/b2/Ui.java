@@ -1,3 +1,5 @@
+package b2;
+
 import java.util.Scanner;
 
 public class Ui {
