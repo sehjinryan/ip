@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parser class to handle parsing of date and time strings into LocalDateTime objects.
+ * Supports multiple date/time formats.
+ */
 public class Parser {
     private static final DateTimeFormatter[] FORMATS = {
             DateTimeFormatter.ISO_LOCAL_DATE_TIME,
@@ -11,6 +15,13 @@ public class Parser {
             DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"),
     };
 
+    /**
+     * Parses the input string into a LocalDateTime object if it matches any of the predefined formats.
+     *
+     * @param input the dateTime string to parse
+     * @return the parsed LocalDateTime object
+     * @throws CbException if the input string does not match any supported format
+     */
     public LocalDateTime parseDateTime(String input) throws CbException {
         String dateTime = input.trim();
         for (DateTimeFormatter format : FORMATS) {
