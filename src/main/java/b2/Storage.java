@@ -8,15 +8,34 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles loading and saving tasks to and from a file.
+ * Provides methods to read tasks from a specified file path and write tasks back to the file.
+ * Utilizes the Parser class to parse dateTime strings.
+ */
 public class Storage {
     private final String filePath;
     private final Parser parser;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     * Initializes the Parser for dateTime parsing.
+     *
+     * @param filePath the path to the file where tasks are stored
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         this.parser = new Parser();
     }
 
+    /**
+     * Loads tasks from the specified file.
+     * Reads each line, parses the task information and constructs Task objects accordingly.
+     * Stores the loaded tasks in an ArrayList and returns it.
+     *
+     * @return an ArrayList of loaded Task objects
+     * @throws CbException if there is an error during loading
+     */
     public ArrayList<Task> loadTasks() throws CbException {
         ArrayList<Task> loadedTasks = new ArrayList<Task>();
         File f = new File(filePath);
@@ -61,6 +80,13 @@ public class Storage {
         return loadedTasks;
     }
 
+    /**
+     * Saves the given list of tasks to the specified file.
+     * Appends each task's string representation to the file, one per line.
+     *
+     * @param tasks the ArrayList of Task objects to be saved
+     * @throws CbException if there is an error during saving
+     */
     public void saveTasks(ArrayList<Task> tasks) throws CbException {
         try {
             File f = new File(filePath);
