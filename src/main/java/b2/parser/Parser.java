@@ -1,8 +1,10 @@
-package b2;
+package b2.parser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import b2.exception.CbException;
 
 /**
  * Parser class to handle parsing of date and time strings into LocalDateTime objects.

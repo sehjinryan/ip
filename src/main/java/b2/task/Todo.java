@@ -1,4 +1,4 @@
-package b2;
+package b2.task;
 
 /**
  * Represents a todo task with a description.
