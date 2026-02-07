@@ -1,7 +1,10 @@
-package b2;
+package b2.task;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+import b2.exception.CbException;
+import b2.parser.Parser;
 
 /**
  * TaskList class to manage a list of task operations.
@@ -10,7 +13,6 @@ import java.util.ArrayList;
  */
 public class TaskList {
     private ArrayList<Task> tasks;
-    private static final String SEPARATOR = "____________________________________________________________";
     private final Parser parser;
 
     /**
@@ -42,61 +44,57 @@ public class TaskList {
         return tasks;
     }
 
+    public int getSize() {
+        return tasks.size();
+    }
+
     /**
      * Lists all tasks in the task list.
      * Displays each task's string representation with its index.
      */
-    public void listTasks() {
-        System.out.println(SEPARATOR);
-        System.out.println("Here are the tasks in your list:");
+    public String listTasks() {
+        String response = "Here are the tasks in your list:\n";
 
         for (int i = 0; i < tasks.size(); i++) {
             Task curr = tasks.get(i);
-            System.out.println((i + 1) + "." + curr);
+            response += (i + 1) + "." + curr + "\n";
         }
 
-        System.out.println(SEPARATOR);
+        return response;
     }
 
     /**
      * Marks the task at the given index as done.
      *
-     * @param task_id the index of the task to mark as done
-     * @throws CbException if the task_id is invalid
+     * @param taskId the index of the task to mark as done
+     * @throws CbException if the taskId is invalid
      */
-    public void markTaskAsDone(int task_id) throws CbException {
-        if (task_id < 0 || task_id >= tasks.size()) {
+    public Task markTaskAsDone(int taskId) throws CbException {
+        if (taskId < 0 || taskId >= tasks.size()) {
             throw new CbException("Error: Invalid task id!");
         }
 
-        Task target = tasks.get(task_id);
+        Task target = tasks.get(taskId);
         target.markAsDone();
 
-        System.out.println(SEPARATOR);
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(target);
-        System.out.println(SEPARATOR);
+        return target;
     }
 
     /**
      * Marks the task at the given index as not done.
      *
-     * @param task_id the index of the task to mark as not done
-     * @throws CbException if the task_id is invalid
+     * @param taskId the index of the task to mark as not done
+     * @throws CbException if the taskId is invalid
      */
-    public void markTaskAsUndone(int task_id) throws CbException {
-        if (task_id < 0 || task_id >= tasks.size()) {
+    public Task markTaskAsUndone(int taskId) throws CbException {
+        if (taskId < 0 || taskId >= tasks.size()) {
             throw new CbException("Error: Invalid task id!");
         }
 
-        Task target = tasks.get(task_id);
-
+        Task target = tasks.get(taskId);
         target.markAsUndone();
 
-        System.out.println(SEPARATOR);
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(target);
-        System.out.println(SEPARATOR);
+        return target;
     }
 
     /**
@@ -105,7 +103,7 @@ public class TaskList {
      * @param input the input string containing the todo command and task description
      * @throws CbException if the description is empty
      */
-    public void addTodo(String input) throws CbException {
+    public Task addTodo(String input) throws CbException {
         if (input.trim().equals("todo")) {
             throw new CbException("Error: The description cannot be empty!");
         }
@@ -115,28 +113,24 @@ public class TaskList {
         Task todo = new Todo(description);
         tasks.add(todo);
 
-        System.out.println(SEPARATOR);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(todo);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println(SEPARATOR);
+        return todo;
     }
 
     /**
      * Adds a Deadline task to the task list.
      *
-     * @param input the input string containing the deadline command, task description, and due dateTime
+     * @param input the input string containing the dueDateTime command, task description, and due dateTime
      * @throws CbException if the description or due dateTime is empty
      */
-    public void addDeadline(String input) throws CbException {
-        if (input.trim().equals("deadline")) {
+    public Task addDeadline(String input) throws CbException {
+        if (input.trim().equals("dueDateTime")) {
             throw new CbException("Error: The description cannot be empty!");
         }
 
         String[] components = input.substring(8).trim().split(" /by ");
 
         if (components.length < 2) {
-            throw new CbException("Error: The deadline cannot be empty!");
+            throw new CbException("Error: The dueDateTime cannot be empty!");
         }
 
         String description = components[0];
@@ -145,11 +139,7 @@ public class TaskList {
         Task dl = new Deadline(description, d);
         tasks.add(dl);
 
-        System.out.println(SEPARATOR);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(dl);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println(SEPARATOR);
+        return dl;
     }
 
     /**
@@ -158,7 +148,7 @@ public class TaskList {
      * @param input the input string containing the event command, task description, start dateTime, and end dateTime
      * @throws CbException if the description, start dateTime, or end dateTime is empty
      */
-    public void addEvent(String input) throws CbException {
+    public Task addEvent(String input) throws CbException {
         if (input.trim().equals("event")) {
             throw new CbException("Error: The description cannot be empty!");
         }
@@ -181,51 +171,42 @@ public class TaskList {
         Task event = new Event(components[0], start, end);
         tasks.add(event);
 
-        System.out.println(SEPARATOR);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(event);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println(SEPARATOR);
+        return event;
     }
 
     /**
      * Deletes the task at the given index from the task list.
      *
-     * @param task_id the index of the task to delete
-     * @throws CbException if the task_id is invalid
+     * @param taskId the index of the task to delete
+     * @throws CbException if the taskId is invalid
      */
-    public void delete(int task_id) throws CbException {
-        if (task_id < 0 || task_id >= tasks.size()) {
+    public Task deleteTask(int taskId) throws CbException {
+        if (taskId < 0 || taskId >= tasks.size()) {
             throw new CbException("Error: Invalid task id!");
         }
 
-        Task target = tasks.remove(task_id);
+        Task target = tasks.remove(taskId);
 
-        System.out.println(SEPARATOR);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(target);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println(SEPARATOR);
+        return target;
     }
 
-    public void find(String keyword) {
-        System.out.println(SEPARATOR);
-        System.out.println("Here are the matching tasks in your list:");
+    public String findTask(String keyword) {
+        String response = "Here are the matching tasks in your list:\n";
 
         int count = 0;
 
         for (int i = 0; i < tasks.size(); i++) {
             Task curr = tasks.get(i);
             if (curr.getDescription().contains(keyword)) {
-                System.out.println((i + 1) + "." + curr);
+                response += (count + 1) + "." + curr + "\n";
                 count++;
             }
         }
 
         if (count == 0) {
-            System.out.println("No matching tasks found.");
+            response += "No matching tasks found.\n";
         }
 
-        System.out.println(SEPARATOR);
+        return response;
     }
 }

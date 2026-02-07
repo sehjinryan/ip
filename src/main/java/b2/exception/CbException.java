@@ -1,4 +1,4 @@
-package b2;
+package b2.exception;
 
 public class CbException extends Exception {
     public CbException(String message) {

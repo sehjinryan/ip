@@ -1,5 +1,9 @@
 package b2;
 
+import b2.exception.CbException;
+import b2.storage.Storage;
+import b2.task.TaskList;
+import b2.ui.Ui;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -88,7 +92,7 @@ public class UiTest {
 
     @Test
     public void handleUserInput_addDeadlineCommand_success() throws CbException {
-        Scanner scanner = new Scanner("deadline Submit assignment /by 30/01/2026 2359\n");
+        Scanner scanner = new Scanner("dueDateTime Submit assignment /by 30/01/2026 2359\n");
         ui.handleUserInput(scanner, taskList, storage);
 
         String expectedOutput = "____________________________________________________________\n" +
@@ -114,11 +118,11 @@ public class UiTest {
 
     @Test
     public void handleUserInput_addTaskNoDateTime_exceptionThrown() {
-        Scanner scanner = new Scanner("deadline Submit assignment\n");
+        Scanner scanner = new Scanner("dueDateTime Submit assignment\n");
         ui.handleUserInput(scanner, taskList, storage);
 
         String expectedOutput = "____________________________________________________________\n" +
-                "Error: The deadline cannot be empty!\n" +
+                "Error: The dueDateTime cannot be empty!\n" +
                 "____________________________________________________________\n";
         assertEquals(expectedOutput, outContent.toString());
     }
@@ -126,7 +130,7 @@ public class UiTest {
     @Test
     public void handleUserInput_listCommand_success() throws CbException {
         taskList.addTodo("todo Read book");
-        taskList.addDeadline("deadline Submit assignment /by 30/01/2026 2359");
+        taskList.addDeadline("dueDateTime Submit assignment /by 30/01/2026 2359");
         taskList.addEvent("event Team meeting /from 31/01/2026 1400 /to 31/01/2026 1600");
         outContent.reset();
 
