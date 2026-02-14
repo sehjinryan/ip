@@ -1,31 +1,31 @@
 package b2;
 
 import b2.exception.CbException;
-import b2.parser.Parser;
+import b2.parser.DateTimeParser;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class ParserTest {
+public class DateTimeParserTest {
 
     @Test
     public void parseDateTime_validInput_success() throws CbException {
-        Parser parser = new Parser();
+        DateTimeParser dateTimeParser = new DateTimeParser();
 
         String isoInput = "2026-01-30T14:30:00";
-        assertEquals("2026-01-30T14:30", parser.parseDateTime(isoInput).toString());
+        assertEquals("2026-01-30T14:30", dateTimeParser.parseDateTime(isoInput).toString());
 
         String slashInput = "30/01/2026 1430";
-        assertEquals("2026-01-30T14:30", parser.parseDateTime(slashInput).toString());
+        assertEquals("2026-01-30T14:30", dateTimeParser.parseDateTime(slashInput).toString());
 
         String dashInput = "30-01-2026 1430";
-        assertEquals("2026-01-30T14:30", parser.parseDateTime(dashInput).toString());
+        assertEquals("2026-01-30T14:30", dateTimeParser.parseDateTime(dashInput).toString());
     }
 
     @Test
     public void parseDateTime_invalidInput_exceptionThrown() {
-        Parser parser = new Parser();
+        DateTimeParser dateTimeParser = new DateTimeParser();
 
         String[] invalidInputs = {
             "30/01/26",
@@ -37,7 +37,7 @@ public class ParserTest {
 
         for (String invalidInput : invalidInputs) {
             try {
-                parser.parseDateTime(invalidInput);
+                dateTimeParser.parseDateTime(invalidInput);
                 fail("Expected CbException to be thrown for input: " + invalidInput);
             } catch (CbException e) {
                 assertEquals("Error: Invalid date/time format! Accepted formats are dd/MM/yyyy HHmm or dd-MM-yyyy HHmm", e.getMessage());

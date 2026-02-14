@@ -3,6 +3,7 @@ package b2;
 import java.util.Scanner;
 
 import b2.exception.CbException;
+import b2.parser.Parser;
 import b2.storage.Storage;
 import b2.task.Task;
 import b2.task.TaskList;
@@ -18,6 +19,7 @@ public class B2SuperBattleDroid {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
+    private Parser parser;
 
     /**
      * Constructs a B2SuperBattleDroid instance with the specified file path for storage.
@@ -34,6 +36,8 @@ public class B2SuperBattleDroid {
         } catch (CbException e) {
             taskList = new TaskList();
         }
+
+        this.parser = new Parser(taskList, storage, ui);
     }
 
     /**
@@ -47,64 +51,20 @@ public class B2SuperBattleDroid {
         try {
             ui.validate(input);
 
-            if (input.equals("list")) {
-                return taskList.listTasks();
-            }
+            String commandWord = input.split(" ")[0];
 
-            if (input.equals("bye")) {
-                return ui.printExit();
-            }
-
-            if (input.startsWith("mark")) {
-                String[] components = input.split(" ");
-                int taskId = Integer.parseInt(components[1]) - 1;
-                Task t = taskList.markTaskAsDone(taskId);
-                storage.saveTasks(taskList.getTasks());
-                return ui.printMarkAsDoneMessage(t);
-            }
-
-            if (input.startsWith("unmark")) {
-                String[] components = input.split(" ");
-                int taskId = Integer.parseInt(components[1]) - 1;
-                Task t = taskList.markTaskAsUndone(taskId);
-                storage.saveTasks(taskList.getTasks());
-                return ui.printMarkAsUndoneMessage(t);
-            }
-
-            if (input.startsWith("todo")) {
-                Task t = taskList.addTodo(input);
-                storage.saveTasks(taskList.getTasks());
-                return ui.printAddTodoMessage(t, taskList.getSize());
-            }
-
-            if (input.startsWith("dueDateTime")) {
-                Task t = taskList.addDeadline(input);
-                storage.saveTasks(taskList.getTasks());
-                return ui.printAddDeadlineMessage(t, taskList.getSize());
-            }
-
-            if (input.startsWith("event")) {
-                Task t = taskList.addEvent(input);
-                storage.saveTasks(taskList.getTasks());
-                return ui.printAddEventMessage(t, taskList.getSize());
-            }
-
-            if (input.startsWith("delete")) {
-                String[] components = input.split(" ");
-                int taskId = Integer.parseInt(components[1]) - 1;
-                Task t = taskList.deleteTask(taskId);
-                storage.saveTasks(taskList.getTasks());
-                return ui.printDeleteMessage(t, taskList.getSize());
-            }
-
-            if (input.startsWith("find")) {
-                String[] components = input.split(" ");
-                String keyword = components[1];
-                return taskList.findTask(keyword);
-            }
-
-            return "Error: invalid command!";
-
+            return switch (commandWord) {
+                case "bye" -> ui.printExit();
+                case "list" -> taskList.listTasks();
+                case "mark" -> parser.parseMarkCommand(input);
+                case "unmark" -> parser.parseUnmarkCommand(input);
+                case "todo" -> parser.parseTodoCommand(input);
+                case "dueDateTime" -> parser.parseDeadlineCommand(input);
+                case "event" -> parser.parseEventCommand(input);
+                case "delete" -> parser.parseDeleteCommand(input);
+                case "find" -> parser.parseFindCommand(input);
+                default -> "Error: invalid command!";
+            };
         } catch (CbException e) {
             return e.getMessage();
         }
