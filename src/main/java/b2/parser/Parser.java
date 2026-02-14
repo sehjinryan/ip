@@ -25,11 +25,15 @@ public class Parser {
      * @throws CbException if the input string does not match any supported format
      */
     public LocalDateTime parseDateTime(String input) throws CbException {
+        assert input != null : "Input DateTime string should not be null";
+        assert !input.trim().isEmpty() : "Input DateTime string should not be empty";
+
         String dateTime = input.trim();
 
         for (DateTimeFormatter format : FORMATS) {
             try {
-                return LocalDateTime.parse(dateTime, format);
+                LocalDateTime parsedDateTime = LocalDateTime.parse(dateTime, format);
+                return parsedDateTime;
             } catch (DateTimeParseException ignored) {}
         }
 
