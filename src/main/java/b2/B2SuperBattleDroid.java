@@ -26,6 +26,9 @@ public class B2SuperBattleDroid {
      * @param filePath The file path where tasks are stored.
      */
     public B2SuperBattleDroid(String filePath) {
+        assert filePath != null : "File path should not be null";
+        assert !filePath.trim().isEmpty() : "File path should not be empty";
+
         this.storage = new Storage(filePath);
         this.ui = new Ui();
 
@@ -47,6 +50,9 @@ public class B2SuperBattleDroid {
         try {
             ui.validate(input);
 
+            assert input != null : "Input should not be null";
+            assert !input.trim().isEmpty() : "Input should not be empty";
+
             if (input.equals("list")) {
                 return taskList.listTasks();
             }
@@ -57,6 +63,7 @@ public class B2SuperBattleDroid {
 
             if (input.startsWith("mark")) {
                 String[] components = input.split(" ");
+                assert components.length == 2 : "Mark command should have exactly 2 components: 'mark' and task ID";
                 int taskId = Integer.parseInt(components[1]) - 1;
                 Task t = taskList.markTaskAsDone(taskId);
                 storage.saveTasks(taskList.getTasks());
@@ -65,6 +72,7 @@ public class B2SuperBattleDroid {
 
             if (input.startsWith("unmark")) {
                 String[] components = input.split(" ");
+                assert components.length == 2 : "Unmark command should have exactly 2 components: 'unmark' and task ID";
                 int taskId = Integer.parseInt(components[1]) - 1;
                 Task t = taskList.markTaskAsUndone(taskId);
                 storage.saveTasks(taskList.getTasks());
@@ -91,6 +99,7 @@ public class B2SuperBattleDroid {
 
             if (input.startsWith("delete")) {
                 String[] components = input.split(" ");
+                assert components.length == 2 : "Delete command should have exactly 2 components: 'delete' and task ID";
                 int taskId = Integer.parseInt(components[1]) - 1;
                 Task t = taskList.deleteTask(taskId);
                 storage.saveTasks(taskList.getTasks());

@@ -31,6 +31,7 @@ public class TaskList {
      * @param tasks the initial list of tasks
      */
     public TaskList(ArrayList<Task> tasks) {
+        assert tasks != null : "Tasks list should not be null";
         this.tasks = tasks;
         this.parser = new Parser();
     }

@@ -31,6 +31,9 @@ public class Storage {
      * @param filePath the path to the file where tasks are stored
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path should not be null";
+        assert !filePath.trim().isEmpty() : "File path should not be empty";
+
         this.filePath = filePath;
         this.parser = new Parser();
     }
@@ -52,6 +55,9 @@ public class Storage {
             while (s.hasNext()) {
                 String line = s.nextLine();
                 String[] components = line.split(" \\| ");
+
+                assert components.length >= 3 : "Each line should have at least 3 components: task type, isDone, and description";
+
                 String taskType = components[0];
                 boolean isDone = components[1].equals("1");
                 String description = components[2];
@@ -96,6 +102,8 @@ public class Storage {
      * @throws CbException if there is an error during saving
      */
     public void saveTasks(ArrayList<Task> tasks) throws CbException {
+        assert tasks != null : "Tasks list should not be null";
+
         try {
             File f = new File(filePath);
 
@@ -112,7 +120,6 @@ public class Storage {
             fw.close();
         } catch (IOException e) {
             System.out.println("Error: Unable to save tasks!");
-
         }
     }
 }
