@@ -28,6 +28,9 @@ public class B2SuperBattleDroid {
      * @param filePath The file path where tasks are stored.
      */
     public B2SuperBattleDroid(String filePath) {
+        assert filePath != null : "File path should not be null";
+        assert !filePath.trim().isEmpty() : "File path should not be empty";
+
         this.storage = new Storage(filePath);
         this.ui = new Ui();
 
