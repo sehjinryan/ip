@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import b2.exception.CbException;
-import b2.parser.Parser;
+import b2.parser.DateTimeParser;
 
 /**
  * TaskList class to manage a list of task operations.
@@ -13,7 +13,7 @@ import b2.parser.Parser;
  */
 public class TaskList {
     private ArrayList<Task> tasks;
-    private final Parser parser;
+    private final DateTimeParser dateTimeParser;
 
     /**
      * Constructs an empty TaskList.
@@ -21,7 +21,7 @@ public class TaskList {
      */
     public TaskList() {
         this.tasks = new ArrayList<Task>();
-        this.parser = new Parser();
+        this.dateTimeParser = new DateTimeParser();
     }
 
     /**
@@ -33,7 +33,7 @@ public class TaskList {
     public TaskList(ArrayList<Task> tasks) {
         assert tasks != null : "Tasks list should not be null";
         this.tasks = tasks;
-        this.parser = new Parser();
+        this.dateTimeParser = new DateTimeParser();
     }
 
     /**
@@ -135,7 +135,7 @@ public class TaskList {
         }
 
         String description = components[0];
-        LocalDateTime d = parser.parseDateTime(components[1]);
+        LocalDateTime d = dateTimeParser.parseDateTime(components[1]);
 
         Task dl = new Deadline(description, d);
         tasks.add(dl);
@@ -166,8 +166,8 @@ public class TaskList {
             throw new CbException("Error: The end time cannot be empty!");
         }
 
-        LocalDateTime start = parser.parseDateTime(timeComponents[0]);
-        LocalDateTime end = parser.parseDateTime(timeComponents[1]);
+        LocalDateTime start = dateTimeParser.parseDateTime(timeComponents[0]);
+        LocalDateTime end = dateTimeParser.parseDateTime(timeComponents[1]);
 
         Task event = new Event(components[0], start, end);
         tasks.add(event);

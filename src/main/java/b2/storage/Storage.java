@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import b2.exception.CbException;
-import b2.parser.Parser;
+import b2.parser.DateTimeParser;
 import b2.task.Deadline;
 import b2.task.Event;
 import b2.task.Task;
@@ -22,7 +22,7 @@ import b2.task.Todo;
  */
 public class Storage {
     private final String filePath;
-    private final Parser parser;
+    private final DateTimeParser dateTimeParser;
 
     /**
      * Constructs a Storage object with the specified file path.
@@ -35,7 +35,7 @@ public class Storage {
         assert !filePath.trim().isEmpty() : "File path should not be empty";
 
         this.filePath = filePath;
-        this.parser = new Parser();
+        this.dateTimeParser = new DateTimeParser();
     }
 
     /**
@@ -69,12 +69,12 @@ public class Storage {
                     t = new Todo(description);
                     break;
                 case "D":
-                    LocalDateTime due = parser.parseDateTime(components[3]);
+                    LocalDateTime due = dateTimeParser.parseDateTime(components[3]);
                     t = new Deadline(description, due);
                     break;
                 case "E":
-                    LocalDateTime start = parser.parseDateTime(components[3].split(" to ")[0]);
-                    LocalDateTime end = parser.parseDateTime(components[3].split(" to ")[1]);
+                    LocalDateTime start = dateTimeParser.parseDateTime(components[3].split(" to ")[0]);
+                    LocalDateTime end = dateTimeParser.parseDateTime(components[3].split(" to ")[1]);
                     t = new Event(description, start, end);
                     break;
                 }
