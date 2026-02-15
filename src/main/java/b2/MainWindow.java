@@ -38,7 +38,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
         dialogContainer.getChildren().add(
-                DialogBox.getB2Dialog("Hello I'm B2 Super Battle Droid!\nWhat can I do for you?", b2Image)
+                DialogBox.getB2Dialog("Hello I'm B2 Super Battle Droid!\nWhat can I do for you?\n Type \"command\" "
+                        + "to see a list of available commands!", b2Image)
         );
     }
 

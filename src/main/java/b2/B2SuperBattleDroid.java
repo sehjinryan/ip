@@ -57,6 +57,7 @@ public class B2SuperBattleDroid {
             String commandWord = input.split(" ")[0];
 
             return switch (commandWord) {
+                case "command" -> ui.printCommands();
                 case "bye" -> ui.printExit();
                 case "list" -> taskList.listTasks();
                 case "mark" -> parser.parseMarkCommand(input);
