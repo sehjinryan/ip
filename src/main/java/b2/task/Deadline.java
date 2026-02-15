@@ -20,6 +20,19 @@ public class Deadline extends Task {
         this.dueDateTime = deadline;
     }
 
+    /**
+     * Edits the dueDateTime of the deadline task.
+     *
+     * @param newDueDateTime the new dueDateTime consisting of date and time
+     */
+    public void editDueDateTime(LocalDateTime newDueDateTime) {
+        this.dueDateTime = newDueDateTime;
+    }
+
+    /** Returns a string representation of the deadline task for display.
+     *
+     * @return a string in the format "[D][status] description (by: dueDateTime)"
+     */
     @Override
     public String toString() {
         return "[D]" + getStatusIcon() + " " + description + " (by: " + dueDateTime.format(DISPLAY_FORMAT) + ")";

@@ -63,10 +63,11 @@ public class B2SuperBattleDroid {
                 case "mark" -> parser.parseMarkCommand(input);
                 case "unmark" -> parser.parseUnmarkCommand(input);
                 case "todo" -> parser.parseTodoCommand(input);
-                case "dueDateTime" -> parser.parseDeadlineCommand(input);
+                case "deadline" -> parser.parseDeadlineCommand(input);
                 case "event" -> parser.parseEventCommand(input);
                 case "delete" -> parser.parseDeleteCommand(input);
                 case "find" -> parser.parseFindCommand(input);
+                case "edit" -> parser.parseEditCommand(input);
                 default -> "Error: invalid command!";
             };
         } catch (CbException e) {

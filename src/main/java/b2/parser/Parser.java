@@ -6,6 +6,11 @@ import b2.task.Task;
 import b2.task.TaskList;
 import b2.ui.Ui;
 
+/**
+ * Responsible for interpreting user commands and executing the corresponding actions on the task list.
+ * Interacts with TaskList to perform operations such as adding, marking, unmarking, deleting, finding, and editing tasks.
+ * Communicates with Storage to save changes to the file and with the Ui class to generate messages.
+ */
 public class Parser {
 
     private final TaskList taskList;
@@ -19,25 +24,19 @@ public class Parser {
     }
 
     public String parseMarkCommand(String command) throws CbException {
-        String[] components = command.split(" ");
-        int taskId = Integer.parseInt(components[1]) - 1;
-        Task t = taskList.markTaskAsDone(taskId);
+        Task t = taskList.markTaskAsDone(command);
         storage.saveTasks(taskList.getTasks());
         return ui.printMarkAsDoneMessage(t);
     }
 
     public String parseUnmarkCommand(String command) throws CbException {
-        String[] components = command.split(" ");
-        int taskId = Integer.parseInt(components[1]) - 1;
-        Task t = taskList.markTaskAsUndone(taskId);
+        Task t = taskList.markTaskAsUndone(command);
         storage.saveTasks(taskList.getTasks());
         return ui.printMarkAsUndoneMessage(t);
     }
 
     public String parseDeleteCommand(String command) throws CbException {
-        String[] components = command.split(" ");
-        int taskId = Integer.parseInt(components[1]) - 1;
-        Task t = taskList.deleteTask(taskId);
+        Task t = taskList.deleteTask(command);
         storage.saveTasks(taskList.getTasks());
         return ui.printDeleteMessage(t, taskList.getSize());
     }
@@ -60,9 +59,15 @@ public class Parser {
         return ui.printAddEventMessage(t, taskList.getSize());
     }
 
-    public String parseFindCommand(String command) {
+    public String parseFindCommand(String command) throws CbException {
         String[] components = command.split(" ");
         String keyword = components[1];
         return taskList.findTask(keyword);
+    }
+
+    public String parseEditCommand(String command) throws CbException {
+        Task t = taskList.editTask(command);
+        storage.saveTasks(taskList.getTasks());
+        return "Noted. I've edited this task:\n" + t;
     }
 }
