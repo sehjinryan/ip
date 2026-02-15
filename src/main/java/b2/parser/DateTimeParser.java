@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
 import b2.exception.CbException;
 
 /**
- * Parser class to handle parsing of date and time strings into LocalDateTime objects.
+ * DateTimeParser class to handle parsing of date and time strings into LocalDateTime objects.
  * Supports multiple date/time formats.
  */
 public class DateTimeParser {
