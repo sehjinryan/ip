@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -28,6 +29,9 @@ public class Main extends Application {
             stage.setMinWidth(417);
 
             fxmlLoader.<MainWindow>getController().setB2(b2);  // inject the B2 instance
+            stage.setTitle("B2 Super Battle Droid");
+            Image icon = new Image(this.getClass().getResourceAsStream("/images/b2icon.png"));
+            stage.getIcons().add(icon);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

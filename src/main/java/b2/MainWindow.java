@@ -56,10 +56,11 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = b2.getResponse(input);
+        boolean isError = b2.getLastResponseWasError();
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getB2Dialog(response, b2Image)
+                isError ? DialogBox.getErrorDialog(response, b2Image) : DialogBox.getB2Dialog(response, b2Image)
         );
 
         if (Objects.equals(response, ui.printExit())) {

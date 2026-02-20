@@ -20,6 +20,7 @@ public class B2SuperBattleDroid {
     private TaskList taskList;
     private Ui ui;
     private Parser parser;
+    private boolean lastResponseWasError = false;
 
     /**
      * Constructs a B2SuperBattleDroid instance with the specified file path for storage.
@@ -56,6 +57,8 @@ public class B2SuperBattleDroid {
 
             String commandWord = input.split(" ")[0];
 
+            lastResponseWasError = false;
+
             return switch (commandWord) {
                 case "command" -> ui.printCommands();
                 case "bye" -> ui.printExit();
@@ -68,10 +71,19 @@ public class B2SuperBattleDroid {
                 case "delete" -> parser.parseDeleteCommand(input);
                 case "find" -> parser.parseFindCommand(input);
                 case "edit" -> parser.parseEditCommand(input);
-                default -> "Error: invalid command!";
+                default -> {
+                    lastResponseWasError = true;
+                    yield "Error: invalid command!";
+                }
             };
         } catch (CbException e) {
+            lastResponseWasError = true;
             return e.getMessage();
         }
     }
+
+    public boolean getLastResponseWasError() {
+        return lastResponseWasError;
+    }
 }
+

@@ -154,7 +154,8 @@ public class TaskList {
      * @throws CbException if the description or due dateTime is empty
      */
     public Task addDeadline(String input) throws CbException {
-        if (input.trim().equals("dueDateTime")) {
+
+        if (input.trim().equals("deadline")) {
             throw new CbException("Error: The description cannot be empty! Usage: deadline <description> /by <dateTime>");
         }
 
