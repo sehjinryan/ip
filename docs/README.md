@@ -219,7 +219,7 @@ Noted. I've edited this task:
 [E][ ] team meeting (from: Mar 15 2026 1300 to: Mar 15 2026 1600)
 ```
 
-### Exiting the program
+## Exiting the program
 
 Exit the program.
 
