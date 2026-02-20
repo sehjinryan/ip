@@ -56,7 +56,8 @@ public class Storage {
                 String line = s.nextLine();
                 String[] components = line.split(" \\| ");
 
-                assert components.length >= 3 : "Each line should have at least 3 components: task type, isDone, and description";
+                assert components.length >= 3 : "Each line should have at least 3 components: task type, isDone, and " +
+                        "description";
 
                 String taskType = components[0];
                 boolean isDone = components[1].equals("1");

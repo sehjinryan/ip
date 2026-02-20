@@ -45,7 +45,7 @@ public class TaskList {
      */
     private void validateNoPipeCharacter(String input) throws CbException {
         if (input.contains("|")) {
-            throw new CbException("Error: Input cannot contain the '|' character as it is reserved for storage!");
+            throw new CbException("Error: Tasks cannot contain the '|' character as it is reserved for storage!");
         }
     }
 
@@ -294,7 +294,8 @@ public class TaskList {
         String components[] = input.split(" ", 4);
 
         if (components.length != 4) {
-            throw new CbException("Error: Invalid command format! Usage: edit <task index> <field: description/by/from/to> <new value>");
+            throw new CbException("Error: Invalid command format! Usage: edit <task index> <field: " +
+                    "description/by/from/to> <new value>");
         }
 
         int taskId = parseTaskId(components[1]);
@@ -306,11 +307,13 @@ public class TaskList {
         }
 
         if (component == null || component.trim().equals("")) {
-            throw new CbException("Error: Component to edit cannot be empty! Usage: edit <task index> <field: description/by/from/to> <new value>");
+            throw new CbException("Error: Component to edit cannot be empty! Usage: edit <task index> <field: " +
+                    "description/by/from/to> <new value>");
         }
 
         if (updatedInfo == null || updatedInfo.trim().equals("")) {
-            throw new CbException("Error: Updated information cannot be empty! Usage: edit <task index> <field: description/by/from/to> <new value>");
+            throw new CbException("Error: Updated information cannot be empty! Usage: edit <task index> <field: " +
+                    "description/by/from/to> <new value>");
         }
 
         validateNoPipeCharacter(updatedInfo);

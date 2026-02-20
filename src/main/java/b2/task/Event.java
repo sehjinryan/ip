@@ -16,8 +16,8 @@ public class Event extends Task {
      * Constructs an Event task with the specified description, start time, and end time.
      *
      * @param description the task description
-     * @param start the start date and time of the event
-     * @param end the end date and time of the event
+     * @param start       the start date and time of the event
+     * @param end         the end date and time of the event
      */
     public Event(String description, LocalDateTime start, LocalDateTime end) throws CbException {
         super(description);
@@ -54,13 +54,15 @@ public class Event extends Task {
         this.end = newEnd;
     }
 
-    /** Returns a string representation of the event task for display.
+    /**
+     * Returns a string representation of the event task for display.
      *
      * @return a string in the format "[E][status] description (from: start to: end)"
      */
     @Override
     public String toString() {
-        return "[E]" + getStatusIcon() + " " + description + " (from: " + start.format(DISPLAY_FORMAT) + " to: " + end.format(DISPLAY_FORMAT) + ")";
+        return "[E]" + getStatusIcon() + " " + description + " (from: " + start.format(DISPLAY_FORMAT) + " to: " +
+                end.format(DISPLAY_FORMAT) + ")";
     }
 
     /**

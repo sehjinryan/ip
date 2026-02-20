@@ -8,7 +8,7 @@ import b2.ui.Ui;
 
 /**
  * Responsible for interpreting user commands and executing the corresponding actions on the task list.
- * Interacts with TaskList to perform operations such as adding, marking, unmarking, deleting, finding, and editing tasks.
+ * Interacts with TaskList to perform  adding, marking, unmarking, deleting, finding, and editing task operations.
  * Communicates with Storage to save changes to the file and with the Ui class to generate messages.
  */
 public class Parser {

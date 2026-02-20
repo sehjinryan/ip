@@ -12,9 +12,9 @@ import b2.exception.CbException;
  */
 public class DateTimeParser {
     private static final DateTimeFormatter[] FORMATS = {
-        DateTimeFormatter.ISO_LOCAL_DATE_TIME,
-        DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
-        DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"),
+            DateTimeFormatter.ISO_LOCAL_DATE_TIME,
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
+            DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm"),
     };
 
     /**
@@ -30,10 +30,12 @@ public class DateTimeParser {
         for (DateTimeFormatter format : FORMATS) {
             try {
                 return LocalDateTime.parse(dateTime, format);
-            } catch (DateTimeParseException ignored) {}
+            } catch (DateTimeParseException ignored) {
+            }
         }
 
-        throw new CbException("Error: Invalid date/time format! Accepted formats are dd/MM/yyyy HHmm or dd-MM-yyyy HHmm");
+        throw new CbException("Error: Invalid date/time format! Accepted formats are dd/MM/yyyy HHmm or " +
+                "dd-MM-yyyy HHmm");
     }
 
 }

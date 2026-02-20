@@ -46,7 +46,8 @@ public class B2SuperBattleDroid {
 
     /**
      * Gets the response from B2 Super Battle Droid for a given user input.
-     * Handles various commands such as listing tasks, adding tasks, marking tasks as done/undone, deleting tasks, and finding tasks.
+     * Handles various commands such as listing tasks, adding tasks, marking tasks as done/undone, deleting tasks,
+     * and finding tasks.
      *
      * @param input The user input command.
      * @return The response string from B2 Super Battle Droid.

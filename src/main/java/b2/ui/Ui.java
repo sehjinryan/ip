@@ -34,7 +34,8 @@ public class Ui {
                 + "8. find <keyword>: Find tasks containing the keyword\n"
                 + "9. help: Show this list of commands\n"
                 + "10. bye: Exit the application\n"
-                + "11. edit <task index> <field: description/by/from/to> <new value>: Edit a task's description or dateTime where applicable\n"
+                + "11. edit <task index> <field: description/by/from/to> <new value>:"
+                + " Edit a task's description or dateTime where applicable\n"
                 + "\n"
                 + "Accepted date and time formats: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm";
     }
