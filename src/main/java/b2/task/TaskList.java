@@ -62,12 +62,12 @@ public class TaskList {
             int taskId = Integer.parseInt(taskIdStr) - 1;
 
             if (taskId < 0 || taskId >= tasks.size()) {
-                throw new CbException("Error: Invalid taskId!");
+                throw new CbException("Error: Invalid task index!");
             }
 
             return taskId;
         } catch (NumberFormatException e) {
-            throw new CbException("Error: TaskId must be a number! Usage: mark <taskId>");
+            throw new CbException("Error: Task index must be a number! Usage: mark <task index>");
         }
     }
 
@@ -96,7 +96,7 @@ public class TaskList {
         String[] components = input.split(" ");
 
         if (components.length != 2) {
-            throw new CbException("Error: Invalid command format! Usage: mark <taskId>");
+            throw new CbException("Error: Invalid command format! Usage: mark <task index>");
         }
 
         int taskId = parseTaskId(components[1]);
@@ -117,7 +117,7 @@ public class TaskList {
         String[] components = input.split(" ");
 
         if (components.length != 2) {
-            throw new CbException("Error: Invalid command format! Usage: unmark <taskId>");
+            throw new CbException("Error: Invalid command format! Usage: unmark <task index>");
         }
 
         int taskId = parseTaskId(components[1]);
@@ -156,13 +156,13 @@ public class TaskList {
     public Task addDeadline(String input) throws CbException {
 
         if (input.trim().equals("deadline")) {
-            throw new CbException("Error: The description cannot be empty! Usage: deadline <description> /by <dateTime>");
+            throw new CbException("Error: The description cannot be empty! Usage: deadline <description> /by <deadline>");
         }
 
         String[] components = input.substring(8).trim().split(" /by ");
 
         if (components.length < 2) {
-            throw new CbException("Error: The due dateTime cannot be empty! Usage: deadline <description> /by <dateTime>");
+            throw new CbException("Error: The deadline cannot be empty! Usage: deadline <description> /by <deadline>");
         }
 
         String description = components[0];
@@ -182,19 +182,19 @@ public class TaskList {
      */
     public Task addEvent(String input) throws CbException {
         if (input.trim().equals("event")) {
-            throw new CbException("Error: The description cannot be empty! Usage: event <description> /from <dateTime> /to <dateTime>");
+            throw new CbException("Error: The description cannot be empty! Usage: event <description> /from <start time> /to <end time>");
         }
 
         String[] components = input.substring(5).trim().split(" /from ");
 
         if (components.length < 2) {
-            throw new CbException("Error: The start time cannot be empty! Usage: event <description> /from <dateTime> /to <dateTime>");
+            throw new CbException("Error: The start time cannot be empty! Usage: event <description> /from <start time> /to <end time>");
         }
 
         String[] timeComponents = components[1].split(" /to ");
 
         if (timeComponents.length < 2) {
-            throw new CbException("Error: The end time cannot be empty! Usage: event <description> /from <dateTime> /to <dateTime>");
+            throw new CbException("Error: The end time cannot be empty! Usage: event <description> /from <start time> /to <end time>");
         }
 
         LocalDateTime start = dateTimeParser.parseDateTime(timeComponents[0]);
@@ -216,7 +216,7 @@ public class TaskList {
         String[] components = input.split(" ");
 
         if (components.length != 2) {
-            throw new CbException("Error: Invalid command format! Usage: delete <taskId>");
+            throw new CbException("Error: Invalid command format! Usage: delete <task index>");
         }
 
         int taskId = parseTaskId(components[1]);
@@ -271,7 +271,7 @@ public class TaskList {
         String components[] = input.split(" ", 4);
 
         if (components.length != 4) {
-            throw new CbException("Error: Invalid command format! Usage: edit <taskId> <field: description/by/from/to> <newValue>");
+            throw new CbException("Error: Invalid command format! Usage: edit <task index> <field: description/by/from/to> <new value>");
         }
 
         int taskId = parseTaskId(components[1]);
@@ -283,11 +283,11 @@ public class TaskList {
         }
 
         if (component == null || component.trim().equals("")) {
-            throw new CbException("Error: Component to edit cannot be empty! Usage: edit <taskId> <field: description/by/from/to> <newValue>");
+            throw new CbException("Error: Component to edit cannot be empty! Usage: edit <task index> <field: description/by/from/to> <new value>");
         }
 
         if (updatedInfo == null || updatedInfo.trim().equals("")) {
-            throw new CbException("Error: Updated information cannot be empty! Usage: edit <taskId> <field: description/by/from/to> <newValue>");
+            throw new CbException("Error: Updated information cannot be empty! Usage: edit <task index> <field: description/by/from/to> <new value>");
         }
 
         Task target = tasks.get(taskId);
@@ -301,7 +301,7 @@ public class TaskList {
                 Deadline dl = (Deadline) target;
                 dl.editDueDateTime(dateTimeParser.parseDateTime(updatedInfo));
             } else {
-                throw new CbException("Error: Only Deadline tasks have a due dateTime!");
+                throw new CbException("Error: Only Deadline tasks have a deadline!");
             }
             break;
         case "from":
@@ -309,7 +309,7 @@ public class TaskList {
                 Event event = (Event) target;
                 event.editStart(dateTimeParser.parseDateTime(updatedInfo));
             } else {
-                throw new CbException("Error: Only Event tasks have a start dateTime!");
+                throw new CbException("Error: Only Event tasks have a start time!");
             }
             break;
         case "to":
@@ -317,7 +317,7 @@ public class TaskList {
                 Event event = (Event) target;
                 event.editEnd(dateTimeParser.parseDateTime(updatedInfo));
             } else {
-                throw new CbException("Error: Only Event tasks have an end dateTime!");
+                throw new CbException("Error: Only Event tasks have an end time!");
             }
             break;
         default:
