@@ -2,6 +2,8 @@ package b2.task;
 
 import java.time.LocalDateTime;
 
+import b2.exception.CbException;
+
 /**
  * Represents an event task with a description, start dateTime and end dateTime.
  * Extends the Task class to include event-specific information.
@@ -17,8 +19,11 @@ public class Event extends Task {
      * @param start the start date and time of the event
      * @param end the end date and time of the event
      */
-    public Event(String description, LocalDateTime start, LocalDateTime end) {
+    public Event(String description, LocalDateTime start, LocalDateTime end) throws CbException {
         super(description);
+        if (end.isBefore(start)) {
+            throw new CbException("Error: End dateTime cannot be earlier than start dateTime!");
+        }
         this.start = start;
         this.end = end;
     }
@@ -28,7 +33,11 @@ public class Event extends Task {
      *
      * @param newStart the new start date and time
      */
-    public void editStart(LocalDateTime newStart) {
+    public void editStart(LocalDateTime newStart) throws CbException {
+        if (this.end.isBefore(newStart)) {
+            throw new CbException("Error: Start dateTime cannot be later than the existing end dateTime ("
+                    + this.end.format(DISPLAY_FORMAT) + ")!");
+        }
         this.start = newStart;
     }
 
@@ -37,7 +46,11 @@ public class Event extends Task {
      *
      * @param newEnd the new end date and time
      */
-    public void editEnd(LocalDateTime newEnd) {
+    public void editEnd(LocalDateTime newEnd) throws CbException {
+        if (newEnd.isBefore(this.start)) {
+            throw new CbException("Error: End dateTime cannot be earlier than the existing start dateTime ("
+                    + this.start.format(DISPLAY_FORMAT) + ")!");
+        }
         this.end = newEnd;
     }
 

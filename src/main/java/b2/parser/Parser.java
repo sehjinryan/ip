@@ -59,12 +59,6 @@ public class Parser {
         return ui.printAddEventMessage(t, taskList.getSize());
     }
 
-    public String parseFindCommand(String command) throws CbException {
-        String[] components = command.split(" ");
-        String keyword = components[1];
-        return taskList.findTask(keyword);
-    }
-
     public String parseEditCommand(String command) throws CbException {
         Task t = taskList.editTask(command);
         storage.saveTasks(taskList.getTasks());
