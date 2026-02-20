@@ -25,18 +25,18 @@ public class Ui {
     public String printCommands() {
         return "Here are the available commands:\n"
                 + "1. list: List all tasks\n"
-                + "2. mark <taskId>: Mark a task as done\n"
-                + "3. unmark <taskId>: Mark a task as not done\n"
-                + "4. delete <taskId>: Delete a task\n"
+                + "2. mark <task index>: Mark a task as done\n"
+                + "3. unmark <task index>: Mark a task as not done\n"
+                + "4. delete <task index>: Delete a task\n"
                 + "5. todo <description>: Add a Todo task\n"
-                + "6. deadline <description> /by <dateTime>: Add a Deadline task\n"
-                + "7. event <description> /from <dateTime> /to <dateTime>: Add an Event task\n"
+                + "6. deadline <description> /by <deadline>: Add a Deadline task\n"
+                + "7. event <description> /from <start time> /to <end time>: Add an Event task\n"
                 + "8. find <keyword>: Find tasks containing the keyword\n"
-                + "9. command: Show this list of commands\n"
+                + "9. help: Show this list of commands\n"
                 + "10. bye: Exit the application\n"
-                + "11. edit <taskId> <field: description/by/from/to> <newValue>: Edit a task's description or dateTime where applicable\n"
+                + "11. edit <task index> <field: description/by/from/to> <new value>: Edit a task's description or dateTime where applicable\n"
                 + "\n"
-                + "dateTime format: dd/MM/yyy HHmm or dd-MM-yyyy HHmm";
+                + "Accepted date and time formats: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm";
     }
 
     public String printExit() {
