@@ -37,6 +37,19 @@ public class TaskList {
     }
 
     /**
+     * Validates that the input does not contain the pipe character "|",
+     * which is reserved as a delimiter in the storage file.
+     *
+     * @param input the string to validate
+     * @throws CbException if the input contains the "|" character
+     */
+    private void validateNoPipeCharacter(String input) throws CbException {
+        if (input.contains("|")) {
+            throw new CbException("Error: Input cannot contain the '|' character as it is reserved for storage!");
+        }
+    }
+
+    /**
      * Returns the list of tasks.
      *
      * @return the ArrayList of tasks
@@ -145,6 +158,7 @@ public class TaskList {
         }
 
         String description = input.substring(4).trim();
+        validateNoPipeCharacter(description);
 
         Task todo = new Todo(description);
         tasks.add(todo);
@@ -171,6 +185,7 @@ public class TaskList {
         }
 
         String description = components[0];
+        validateNoPipeCharacter(description);
         LocalDateTime d = dateTimeParser.parseDateTime(components[1]);
 
         Task dl = new Deadline(description, d);
@@ -196,6 +211,9 @@ public class TaskList {
             throw new CbException("Error: The start time cannot be empty! Usage: event <description> /from <start time> /to <end time>");
         }
 
+        String description = components[0];
+        validateNoPipeCharacter(description);
+
         String[] timeComponents = components[1].split(" /to ");
 
         if (timeComponents.length < 2) {
@@ -205,7 +223,7 @@ public class TaskList {
         LocalDateTime start = dateTimeParser.parseDateTime(timeComponents[0]);
         LocalDateTime end = dateTimeParser.parseDateTime(timeComponents[1]);
 
-        Task event = new Event(components[0], start, end);
+        Task event = new Event(description, start, end);
         tasks.add(event);
 
         return event;
@@ -294,6 +312,8 @@ public class TaskList {
         if (updatedInfo == null || updatedInfo.trim().equals("")) {
             throw new CbException("Error: Updated information cannot be empty! Usage: edit <task index> <field: description/by/from/to> <new value>");
         }
+
+        validateNoPipeCharacter(updatedInfo);
 
         Task target = tasks.get(taskId);
 
