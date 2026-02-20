@@ -80,7 +80,7 @@ public class TaskList {
 
         for (int i = 0; i < tasks.size(); i++) {
             Task curr = tasks.get(i);
-            response += (i + 1) + "." + curr + "\n";
+            response += (i + 1) + ". " + curr + "\n";
         }
 
         return response;
@@ -234,27 +234,27 @@ public class TaskList {
      * @throws CbException if the command format is invalid
      */
     public String findTask(String input) throws CbException {
-        String[] components = input.split(" ");
+        String[] components = input.split(" ", 2);
 
-        if (components.length != 2) {
+        if (components.length < 2) {
             throw new CbException("Error: Invalid command format! Usage: find <keyword>");
         }
 
-        String keyword = components[1];
+        String keyword = components[1].toLowerCase();
         String response = "Here are the matching tasks in your list:\n";
 
         int count = 0;
 
         for (int i = 0; i < tasks.size(); i++) {
             Task curr = tasks.get(i);
-            if (curr.getDescription().contains(keyword)) {
-                response += (count + 1) + "." + curr + "\n";
+            if (curr.getDescription().toLowerCase().contains(keyword)) {
+                response += (count + 1) + ". " + curr + "\n";
                 count++;
             }
         }
 
         if (count == 0) {
-            response += "No matching tasks found.\n";
+            response += "No matching tasks found!\n";
         }
 
         return response;

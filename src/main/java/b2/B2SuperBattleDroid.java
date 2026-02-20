@@ -60,7 +60,7 @@ public class B2SuperBattleDroid {
             lastResponseWasError = false;
 
             return switch (commandWord) {
-                case "command" -> ui.printCommands();
+                case "help" -> ui.printCommands();
                 case "bye" -> ui.printExit();
                 case "list" -> taskList.listTasks();
                 case "mark" -> parser.parseMarkCommand(input);
@@ -69,7 +69,7 @@ public class B2SuperBattleDroid {
                 case "deadline" -> parser.parseDeadlineCommand(input);
                 case "event" -> parser.parseEventCommand(input);
                 case "delete" -> parser.parseDeleteCommand(input);
-                case "find" -> parser.parseFindCommand(input);
+                case "find" -> taskList.findTask(input);
                 case "edit" -> parser.parseEditCommand(input);
                 default -> {
                     lastResponseWasError = true;

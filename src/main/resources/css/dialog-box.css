@@ -4,7 +4,7 @@
 .label {
     -fx-border-color: #0044ff #0099ff #00ccff #0066ff;
     -fx-border-width: 2px;
-    -fx-background-color: linear-gradient(to bottom right, #cce5ff, #e0f7ff);
+    -fx-background-color: linear-gradient(to bottom right, #a8c8ff, #c5eeff);
     -fx-background-radius: 1em 1em 0 1em;
     -fx-border-radius: 1em 1em 0 1em;
     -fx-padding: 6px;
@@ -15,7 +15,7 @@
 /* Bot dialog box — red gradient */
 .reply-label {
     -fx-border-color: #ff0000 #ff6600 #ff3300 #cc0000;
-    -fx-background-color: linear-gradient(to bottom right, #ffe5e5, #fff0e0);
+    -fx-background-color: linear-gradient(to bottom right, #ffb3b3, #ffd5b3);
     -fx-background-radius: 1em 1em 1em 0;
     -fx-border-radius: 1em 1em 1em 0;
 }
@@ -34,7 +34,7 @@
 }
 
 .error-label {
-    -fx-text-fill: red;
+    -fx-text-fill: #cc0000;
     -fx-font-weight: bold;
 }
 

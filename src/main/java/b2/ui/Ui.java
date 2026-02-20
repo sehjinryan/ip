@@ -34,7 +34,9 @@ public class Ui {
                 + "8. find <keyword>: Find tasks containing the keyword\n"
                 + "9. command: Show this list of commands\n"
                 + "10. bye: Exit the application\n"
-                + "11. edit <taskId> <field: description/by/from/to> <newValue>: Edit a task's description or dateTime.";
+                + "11. edit <taskId> <field: description/by/from/to> <newValue>: Edit a task's description or dateTime where applicable\n"
+                + "\n"
+                + "dateTime format: dd/MM/yyy HHmm or dd-MM-yyyy HHmm";
     }
 
     public String printExit() {
