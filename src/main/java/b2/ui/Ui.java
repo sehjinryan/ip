@@ -3,8 +3,19 @@ package b2.ui;
 import b2.exception.CbException;
 import b2.task.Task;
 
+/**
+ * Responsible for handling user interactions and generating messages to be displayed to the user.
+ * Provides methods to validate user input and to create messages for various actions such as listing commands,
+ * marking tasks as done or undone, adding tasks, and deleting tasks.
+ */
 public class Ui {
 
+    /**
+     * Validates the user input to ensure it is not empty or just whitespace.
+     *
+     * @param input the user input to validate
+     * @throws CbException if the input is empty or only whitespace
+     */
     public void validate(String input) throws CbException {
         if (input == null || input.trim().isEmpty()) {
             throw new CbException("Error: Input cannot be empty!");
@@ -22,7 +33,8 @@ public class Ui {
                 + "7. event <description> /from <dateTime> /to <dateTime>: Add an Event task\n"
                 + "8. find <keyword>: Find tasks containing the keyword\n"
                 + "9. command: Show this list of commands\n"
-                + "10. bye: Exit the application";
+                + "10. bye: Exit the application\n"
+                + "11. edit <taskId> <field: description/by/from/to> <newValue>: Edit a task's description or dateTime.";
     }
 
     public String printExit() {

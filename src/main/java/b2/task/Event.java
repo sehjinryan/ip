@@ -23,6 +23,28 @@ public class Event extends Task {
         this.end = end;
     }
 
+    /**
+     * Edits the start date and time of the event.
+     *
+     * @param newStart the new start date and time
+     */
+    public void editStart(LocalDateTime newStart) {
+        this.start = newStart;
+    }
+
+    /**
+     * Edits the end date and time of the event.
+     *
+     * @param newEnd the new end date and time
+     */
+    public void editEnd(LocalDateTime newEnd) {
+        this.end = newEnd;
+    }
+
+    /** Returns a string representation of the event task for display.
+     *
+     * @return a string in the format "[E][status] description (from: start to: end)"
+     */
     @Override
     public String toString() {
         return "[E]" + getStatusIcon() + " " + description + " (from: " + start.format(DISPLAY_FORMAT) + " to: " + end.format(DISPLAY_FORMAT) + ")";

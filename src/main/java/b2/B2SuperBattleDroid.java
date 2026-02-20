@@ -70,6 +70,7 @@ public class B2SuperBattleDroid {
                 case "event" -> parser.parseEventCommand(input);
                 case "delete" -> parser.parseDeleteCommand(input);
                 case "find" -> parser.parseFindCommand(input);
+                case "edit" -> parser.parseEditCommand(input);
                 default -> {
                     lastResponseWasError = true;
                     yield "Error: invalid command!";
