@@ -22,7 +22,7 @@ public class Event extends Task {
     public Event(String description, LocalDateTime start, LocalDateTime end) throws CbException {
         super(description);
         if (end.isBefore(start)) {
-            throw new CbException("Error: End dateTime cannot be earlier than start dateTime!");
+            throw new CbException("Error: End time cannot be earlier than start time!");
         }
         this.start = start;
         this.end = end;
@@ -35,7 +35,7 @@ public class Event extends Task {
      */
     public void editStart(LocalDateTime newStart) throws CbException {
         if (this.end.isBefore(newStart)) {
-            throw new CbException("Error: Start dateTime cannot be later than the existing end dateTime ("
+            throw new CbException("Error: Start time cannot be later than the existing end time ("
                     + this.end.format(DISPLAY_FORMAT) + ")!");
         }
         this.start = newStart;
@@ -48,7 +48,7 @@ public class Event extends Task {
      */
     public void editEnd(LocalDateTime newEnd) throws CbException {
         if (newEnd.isBefore(this.start)) {
-            throw new CbException("Error: End dateTime cannot be earlier than the existing start dateTime ("
+            throw new CbException("Error: End time cannot be earlier than the existing start time ("
                     + this.start.format(DISPLAY_FORMAT) + ")!");
         }
         this.end = newEnd;
