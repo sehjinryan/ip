@@ -78,6 +78,11 @@ public class TaskList {
     public String listTasks() {
         String response = "Here are the tasks in your list:\n";
 
+        if (tasks.isEmpty()) {
+            response += "No tasks in the list!\n";
+            return response;
+        }
+
         for (int i = 0; i < tasks.size(); i++) {
             Task curr = tasks.get(i);
             response += (i + 1) + ". " + curr + "\n";
