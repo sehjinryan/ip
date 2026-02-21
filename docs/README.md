@@ -24,9 +24,9 @@ commands). This guide will walk you through the features and functionalities of 
 ## Quick Start Guide
 
 1. Ensure you have Java `17` or above installed on your system.
-    2. **Mac users**: Ensure you have the precise JDK version
-       prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html)
-1. Download the latest `.jar` file from [here](https://github.com/sehjinryan/ip/releases)
+    - **Mac users**: Ensure you have the precise JDK version
+      prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+1. Download the latest `.jar` file from [here](https://github.com/sehjinryan/ip/releases).
 
 2. Copy the file to the folder you want to use as the working directory for the chatbot (This is where your `tasks.txt`
    file will be created and stored).
