@@ -1,20 +1,37 @@
-# B2 Super Battle Droid User Guide
+# B2 Super Battle Droid User Guide 🤖
 
 ![Ui.png](Ui.png)
 
 ## Introduction
 
-I have managed to capture and convert a B2 Super Battle Droid from a menacing, relentless killing machine into a docile, helpful task-managing assistant (Although he may exhibit some aggressive tendencies if you annoy him with invalid commands). This guide will walk you through the features and functionalities of the B2 Super Battle Droid chatbot!
+I have managed to capture and convert a B2 Super Battle Droid from a menacing, relentless killing machine into a docile,
+helpful task-managing assistant (Although he may exhibit some aggressive tendencies if you annoy him with invalid
+commands). This guide will walk you through the features and functionalities of the B2 Super Battle Droid chatbot!
 
 ## Features
+
 - **Listing tasks**: View all your current tasks in a clear and organized manner.
 - **Adding tasks**: Add Todos, Deadlines, and Events with specific details.
 - **Editing tasks**: Modify details of existing tasks, such as changing the description or updating the deadline.
 - **Deleting tasks**: Remove tasks from the list when they are no longer needed.
 - **Marking/Unmarking tasks as completed**: Mark tasks as done or revert them back to pending status.
 - **Finding tasks by keyword**: Search for tasks containing specific keywords in their descriptions.
-- **Data persistence**: All tasks are saved to `data/tasks.txt`, ensuring that your data is not lost when you exit the application. When you start the application again, it will load your existing tasks from the `tasks.txt` file.
-- **Help menu**: Access a comprehensive list of commands and their formats to easily navigate the chatbot's functionalities.
+- **Data persistence**: All tasks are saved to `data/tasks.txt`, ensuring that your data is not lost when you exit the
+  application. When you start the application again, it will load your existing tasks from the `tasks.txt` file.
+- **Help menu**: Access a comprehensive list of commands and their formats to easily navigate the chatbot's
+  functionalities.
+
+## Quick Start Guide
+
+1. Ensure you have Java `17` or above installed on your system.
+    2. **Mac users**: Ensure you have the precise JDK version
+       prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html)
+1. Download the latest `.jar` file from [here](https://github.com/sehjinryan/ip/releases)
+
+2. Copy the file to the folder you want to use as the working directory for the chatbot (This is where your `tasks.txt`
+   file will be created and stored).
+3. Open a command terminal and `cd` into the folder where you placed the `.jar` file.
+4. Run the command `java -jar b2.jar` to start the chatbot.
 
 ## Help menu
 
@@ -23,6 +40,7 @@ Access the help menu to view a list of available commands and their respective f
 **Command Format**: `help`
 
 **Expected Outcome**:
+
 ```
 Here are the available commands:
 1. list: List all tasks
@@ -62,11 +80,13 @@ Now you have 1 task in the list.
 
 Add a task with a description and a deadline.
 
-**Command Format**: `deadline <description> /by <deadline>` where `<deadline>` is in the format `dd-MM-yyyy HHmm` or `dd/MM/yyyy HHmm`.
+**Command Format**: `deadline <description> /by <deadline>` where `<deadline>` is in the format `dd-MM-yyyy HHmm` or
+`dd/MM/yyyy HHmm`.
 
 **Example**: `deadline submit report /by 20-02-2026 2359`
 
 **Expected Outcome**:
+
 ```
 Got it. I've added this task:
 [D][ ] submit report (by: Feb 20 2026 2359)
@@ -77,11 +97,13 @@ Now you have 2 tasks in the list.
 
 Add a task with a description, a start time, and an end time.
 
-**Command Format**: `event <description> /from <start time> /to <end time>` where `<start time>` and `<end time>` are in the format `dd-MM-yyyy HHmm` or `dd/MM/yyyy HHmm`.
+**Command Format**: `event <description> /from <start time> /to <end time>` where `<start time>` and `<end time>` are in
+the format `dd-MM-yyyy HHmm` or `dd/MM/yyyy HHmm`.
 
 **Example**: `event team meeting /from 15-03-2026 1400 /to 15-03-2026 1500`
 
 **Expected Outcome**:
+
 ```
 Got it. I've added this task:
 [E][ ] team meeting (from: Mar 15 2026 1400 to: Mar 15 2026 1500)
@@ -95,6 +117,7 @@ List all tasks in the current task list.
 **Command Format**: `list`
 
 **Expected Outcome**:
+
 ```
 Here are the tasks in your list:
 1.[T][ ] math homework
@@ -113,6 +136,7 @@ Mark a task as completed.
 **Example**: `mark 1`
 
 **Expected Outcome**:
+
 ```
 Nice! I've marked this task as done:
 [T][X] math homework
@@ -127,6 +151,7 @@ Unmark a completed task, reverting it back to pending status.
 **Example**: `unmark 1`
 
 **Expected Outcome**:
+
 ```
 OK, I've marked this task as not done yet:
 [T][ ] math homework
@@ -141,6 +166,7 @@ Delete a task from the list.
 **Example**: `delete 2`
 
 **Expected Outcome**:
+
 ```
 Noted. I've removed this task:
 [D][ ] submit report (by: Feb 20 2026 2359)
@@ -156,6 +182,7 @@ Find tasks that contain a specific keyword in their descriptions.
 **Example**: `find meeting`
 
 **Expected Outcome**:
+
 ```
 Here are the matching tasks in your list:
 1.[E][ ] team meeting (from: Mar 15 2026 1400 to: Mar 15 2026 1500)
@@ -172,6 +199,7 @@ Edit the description of an existing task.
 **Example**: `edit 1 description complete math homework`
 
 **Expected Outcome**:
+
 ```
 Noted. I've edited this task:
 [T][ ] complete math homework
@@ -181,11 +209,13 @@ Noted. I've edited this task:
 
 Edit the deadline of an existing **Deadline** task.
 
-**Command Format**: `edit <task index> by <new deadline>` where `<new deadline>` is in the format `dd-MM-yyyy HHmm` or `dd/MM/yyyy HHmm`.
+**Command Format**: `edit <task index> by <new deadline>` where `<new deadline>` is in the format `dd-MM-yyyy HHmm` or
+`dd/MM/yyyy HHmm`.
 
 **Example**: `edit 2 by 25-02-2026 2359`
 
 **Expected Outcome**:
+
 ```
 Noted. I've edited this task:
 [D][ ] submit report (by: Feb 25 2026 2359)
@@ -195,11 +225,13 @@ Noted. I've edited this task:
 
 Edit the start time of an existing **Event** task.
 
-**Command Format**: `edit <task index> from <new start time>` where `<new start time>` is in the format `dd-MM-yyyy HHmm` or `dd/MM/yyyy HHmm`.
+**Command Format**: `edit <task index> from <new start time>` where `<new start time>` is in the format
+`dd-MM-yyyy HHmm` or `dd/MM/yyyy HHmm`.
 
 **Example**: `edit 3 from 15-03-2026 1300`
 
 **Expected Outcome**:
+
 ```
 Noted. I've edited this task:
 [E][ ] team meeting (from: Mar 15 2026 1300 to: Mar 15 2026 1500)
@@ -209,11 +241,13 @@ Noted. I've edited this task:
 
 Edit the end time of an existing **Event** task.
 
-**Command Format**: `edit <task index> to <new end time>` where `<new end time>` is in the format `dd-MM-yyyy HHmm` or `dd/MM/yyyy HHmm`.
+**Command Format**: `edit <task index> to <new end time>` where `<new end time>` is in the format `dd-MM-yyyy HHmm` or
+`dd/MM/yyyy HHmm`.
 
 **Example**: `edit 3 to 15-03-2026 1600`
 
 **Expected Outcome**:
+
 ```
 Noted. I've edited this task:
 [E][ ] team meeting (from: Mar 15 2026 1300 to: Mar 15 2026 1600)
@@ -226,6 +260,7 @@ Exit the program.
 **Command Format**: `bye`
 
 **Expected Outcome**:
+
 ```
 Bye. Hope to see you again soon!
 ```
